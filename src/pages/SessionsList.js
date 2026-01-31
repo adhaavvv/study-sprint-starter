@@ -84,7 +84,9 @@ export default function SessionsList() {
           {isLoggedIn ? (
             <button onClick={() => navigate("/sessions/new")}>+ Create</button>
           ) : (
-            <button onClick={() => navigate("/login")}>Login to Join/Create</button>
+            <button onClick={() => navigate("/login")}>
+              Login to Join/Create
+            </button>
           )}
         </div>
       </div>
@@ -177,7 +179,6 @@ export default function SessionsList() {
                       View
                     </button>
 
-                    {/* Join/Leave quick actions (optional) */}
                     <button
                       onClick={() => handleJoin(s.id)}
                       disabled={!isLoggedIn || isCompleted || isFull}
