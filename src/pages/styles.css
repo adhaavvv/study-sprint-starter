@@ -307,3 +307,101 @@ h3 {
 .back-button {
   margin-top: 20px;
 }
+
+/* My Sessions */
+.my-sessions-container {
+  max-width: 950px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.my-sessions-header {
+  margin-bottom: 20px;
+}
+
+.my-sessions-header h2 {
+  margin-bottom: 10px;
+}
+
+.my-sessions-header p {
+  color: #666;
+}
+
+.my-sessions-grid {
+  display: grid;
+  gap: 15px;
+}
+
+.my-session-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.my-session-info {
+  flex: 1;
+}
+
+.my-session-info h3 {
+  margin: 0 0 10px 0;
+}
+
+.my-session-details p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.my-session-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Create/Edit Session Forms */
+.session-form-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.session-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.form-buttons button {
+  flex: 1;
+}

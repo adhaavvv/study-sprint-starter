@@ -49,11 +49,11 @@ export default function CreateSession() {
   }
 
   return (
-    <main style={{ maxWidth: "500px", margin: "0 auto", padding: "2rem" }}>
+    <main className="session-form-container">
       <h2>Create Study Session</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "1rem" }}>
+      <form className="session-form" onSubmit={handleSubmit}>
+        <div className="form-group">
           <label>Title</label>
           <input
             type="text"
@@ -64,7 +64,7 @@ export default function CreateSession() {
           />
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-group">
           <label>Module</label>
           <input
             type="text"
@@ -75,7 +75,7 @@ export default function CreateSession() {
           />
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-group">
           <label>Venue</label>
           <input
             type="text"
@@ -86,7 +86,7 @@ export default function CreateSession() {
           />
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-group">
           <label>Date & Time</label>
           <input
             type="datetime-local"
@@ -96,7 +96,7 @@ export default function CreateSession() {
           />
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-group">
           <label>Max Participants</label>
           <input
             type="number"
@@ -108,10 +108,10 @@ export default function CreateSession() {
         </div>
 
         {error && (
-          <p style={{ color: "red", marginBottom: "1rem" }}>{error}</p>
+          <p className="error">{error}</p>
         )}
 
-        <div style={{ display: "flex", gap: "0.75rem" }}>
+        <div className="form-buttons">
           <button type="submit" disabled={busy}>
             {busy ? "Creating..." : "Create Session"}
           </button>

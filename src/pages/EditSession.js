@@ -88,7 +88,7 @@ export default function EditSession() {
 
   if (loading) {
     return (
-      <main style={{ maxWidth: "500px", margin: "0 auto", padding: "2rem" }}>
+      <main className="session-form-container">
         <p>Loading...</p>
       </main>
     );
@@ -96,19 +96,19 @@ export default function EditSession() {
 
   if (error && !title && !module && !venue && !datetime) {
     return (
-      <main style={{ maxWidth: "500px", margin: "0 auto", padding: "2rem" }}>
-        <p style={{ color: "red" }}>{error}</p>
+      <main className="session-form-container">
+        <p className="error">{error}</p>
         <button onClick={() => navigate("/sessions")}>Back</button>
       </main>
     );
   }
 
   return (
-    <main style={{ maxWidth: "500px", margin: "0 auto", padding: "2rem" }}>
+    <main className="session-form-container">
       <h2>Edit Study Session</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "1rem" }}>
+      <form className="session-form" onSubmit={handleSubmit}>
+        <div className="form-group">
           <label>Title</label>
           <input
             type="text"
@@ -118,7 +118,7 @@ export default function EditSession() {
           />
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-group">
           <label>Module</label>
           <input
             type="text"
@@ -128,7 +128,7 @@ export default function EditSession() {
           />
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-group">
           <label>Venue</label>
           <input
             type="text"
@@ -138,7 +138,7 @@ export default function EditSession() {
           />
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-group">
           <label>Date & Time</label>
           <input
             type="datetime-local"
@@ -148,7 +148,7 @@ export default function EditSession() {
           />
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-group">
           <label>Max Participants</label>
           <input
             type="number"
@@ -159,9 +159,9 @@ export default function EditSession() {
           />
         </div>
 
-        {error && <p style={{ color: "red", marginBottom: "1rem" }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
 
-        <div style={{ display: "flex", gap: "0.75rem" }}>
+        <div className="form-buttons">
           <button type="submit" disabled={busy}>
             {busy ? "Saving..." : "Save Changes"}
           </button>
@@ -184,3 +184,4 @@ export default function EditSession() {
     </main>
   );
 }
+

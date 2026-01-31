@@ -45,78 +45,55 @@ export default function MySessions() {
   }
 
   return (
-    <main style={{ maxWidth: "950px", margin: "0 auto", padding: "2rem" }}>
-      <h2>My Joined Sessions</h2>
-      <p style={{ marginBottom: "1rem" }}>
-        These are the study sessions you’ve joined.
-      </p>
+    <main className="my-sessions-container">
+      <div className="my-sessions-header">
+        <h2>My Joined Sessions</h2>
+        <p>These are the study sessions you’ve joined.</p>
+      </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
 
       {sessions.length === 0 && !busy ? (
         <p>You haven’t joined any sessions yet.</p>
       ) : (
-        <div style={{ display: "grid", gap: "1rem" }}>
+        <div className="my-sessions-grid">
           {sessions.map((s) => {
             const joinedCount = Number(s.joined_count ?? 0);
             const capacity = Number(s.capacity ?? 0);
             const isCompleted = s.status === "COMPLETED";
 
             return (
-              <div
-                key={s.id}
-                style={{
-                  border: "1px solid #ddd",
-                  borderRadius: "10px",
-                  padding: "1rem",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: "1rem",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div style={{ flex: "1 1 420px" }}>
-                  <h3 style={{ margin: 0 }}>{s.title}</h3>
-                  <p style={{ margin: "0.4rem 0" }}>
-                    <b>Module:</b> {s.module} &nbsp;•&nbsp; <b>Venue:</b>{" "}
-                    {s.venue}
-                  </p>
-                  <p style={{ margin: "0.4rem 0" }}>
-                    <b>Date/Time:</b>{" "}
-                    {s.datetime ? new Date(s.datetime).toLocaleString() : "-"}
-                  </p>
-                  <p style={{ margin: "0.4rem 0" }}>
-                    <b>Status:</b> {s.status}
-                  </p>
-                  <p style={{ margin: "0.4rem 0" }}>
-                    <b>Capacity:</b> {joinedCount}/{capacity}
-                  </p>
-                  {s.creator_username && (
-                    <p style={{ margin: "0.4rem 0" }}>
-                      <b>Creator:</b> {s.creator_username}
+              <div key={s.id} className="my-session-card">
+                <div className="my-session-info">
+                  <h3>{s.title}</h3>
+                  <div className="my-session-details">
+                    <p>
+                      <b>Module:</b> {s.module} &nbsp;•&nbsp; <b>Venue:</b> {s.venue}
                     </p>
-                  )}
+                    <p>
+                      <b>Date/Time:</b> {s.datetime ? new Date(s.datetime).toLocaleString() : "-"}
+                    </p>
+                    <p>
+                      <b>Status:</b> {s.status}
+                    </p>
+                    <p>
+                      <b>Capacity:</b> {joinedCount}/{capacity}
+                    </p>
+                    {s.creator_username && (
+                      <p>
+                        <b>Creator:</b> {s.creator_username}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "0.5rem",
-                    alignItems: "center",
-                  }}
-                >
+                <div className="my-session-actions">
                   <button onClick={() => navigate(`/sessions/${s.id}`)}>
                     View
                   </button>
-
                   <button
                     onClick={() => handleLeave(s.id)}
                     disabled={busy || isCompleted}
-                    title={
-                      isCompleted
-                        ? "Completed sessions cannot be left"
-                        : "Leave session"
-                    }
                   >
                     Leave
                   </button>
