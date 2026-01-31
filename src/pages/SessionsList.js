@@ -73,7 +73,13 @@ export default function SessionsList() {
 
   return (
     <main style={{ maxWidth: "950px", margin: "0 auto", padding: "2rem" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "1rem",
+        }}
+      >
         <div>
           <h2>Upcoming Study Sessions</h2>
           <p style={{ marginTop: "0.25rem" }}>
@@ -85,7 +91,9 @@ export default function SessionsList() {
           {isLoggedIn ? (
             <button onClick={() => navigate("/sessions/new")}>+ Create</button>
           ) : (
-            <button onClick={() => navigate("/login")}>Login to Join/Create</button>
+            <button onClick={() => navigate("/login")}>
+              Login to Join/Create
+            </button>
           )}
         </div>
       </div>
@@ -143,11 +151,7 @@ export default function SessionsList() {
         </div>
       </section>
 
-      {error && (
-        <p style={{ color: "red", marginTop: "1rem" }}>
-          {error}
-        </p>
-      )}
+      {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
 
       {/* List */}
       <section style={{ marginTop: "1.25rem" }}>
@@ -177,7 +181,8 @@ export default function SessionsList() {
                   <div style={{ flex: "1 1 420px" }}>
                     <h3 style={{ margin: 0 }}>{s.title}</h3>
                     <p style={{ margin: "0.4rem 0" }}>
-                      <b>Module:</b> {s.module} &nbsp;•&nbsp; <b>Venue:</b> {s.venue}
+                      <b>Module:</b> {s.module} &nbsp;•&nbsp; <b>Venue:</b>{" "}
+                      {s.venue}
                     </p>
                     <p style={{ margin: "0.4rem 0" }}>
                       <b>Date/Time:</b>{" "}
@@ -194,12 +199,17 @@ export default function SessionsList() {
                     )}
                   </div>
 
-                  <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.5rem",
+                      alignItems: "center",
+                    }}
+                  >
                     <button onClick={() => navigate(`/sessions/${s.id}`)}>
                       View
                     </button>
 
-                    {/* Join/Leave quick actions (optional) */}
                     <button
                       onClick={() => handleJoin(s.id)}
                       disabled={!isLoggedIn || isCompleted || isFull}
