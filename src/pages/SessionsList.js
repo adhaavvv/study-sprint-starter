@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSessions, joinSession, leaveSession } from "../services/api";
+import './styles.css'
 
 export default function SessionsList() {
   const navigate = useNavigate();
@@ -72,16 +73,14 @@ export default function SessionsList() {
   }
 
   return (
-    <main style={{ maxWidth: "950px", margin: "0 auto", padding: "2rem" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-        <div>
+    <main className="sessions-container">
+      <div className="sessions-header">
+        <div className="sessions-header-info">
           <h2>Upcoming Study Sessions</h2>
-          <p style={{ marginTop: "0.25rem" }}>
-            Filter by module/date, then view details to join or manage.
-          </p>
+          <p>Filter by module/date, then view details to join or manage.</p>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <div className="sessions-header-actions">
           {isLoggedIn ? (
             <button onClick={() => navigate("/sessions/new")}>+ Create</button>
           ) : (
@@ -91,19 +90,9 @@ export default function SessionsList() {
       </div>
 
       {/* Filters */}
-      <section
-        style={{
-          marginTop: "1.25rem",
-          padding: "1rem",
-          border: "1px solid #ddd",
-          borderRadius: "8px",
-          display: "flex",
-          gap: "1rem",
-          flexWrap: "wrap",
-        }}
-      >
-        <div>
-          <label style={{ display: "block", fontSize: "0.9rem" }}>Module</label>
+      <section className="filters-section">
+        <div className="filter-group">
+          <label>Module</label>
           <select
             value={moduleFilter}
             onChange={(e) => setModuleFilter(e.target.value)}
@@ -117,8 +106,8 @@ export default function SessionsList() {
           </select>
         </div>
 
-        <div>
-          <label style={{ display: "block", fontSize: "0.9rem" }}>Date</label>
+        <div className="filter-group">
+          <label>Date</label>
           <input
             type="date"
             value={dateFilter}
@@ -126,7 +115,7 @@ export default function SessionsList() {
           />
         </div>
 
-        <div style={{ display: "flex", alignItems: "end", gap: "0.5rem" }}>
+        <div className="filter-buttons">
           <button type="button" onClick={loadSessions} disabled={busy}>
             {busy ? "Loading..." : "Refresh"}
           </button>
@@ -144,17 +133,17 @@ export default function SessionsList() {
       </section>
 
       {error && (
-        <p style={{ color: "red", marginTop: "1rem" }}>
+        <p className="error">
           {error}
         </p>
       )}
 
       {/* List */}
-      <section style={{ marginTop: "1.25rem" }}>
+      <section className="sessions-list">
         {sessions.length === 0 && !busy ? (
-          <p>No sessions found. Try changing filters or create one.</p>
+          <p className="no-sessions">No sessions found. Try changing filters or create one.</p>
         ) : (
-          <div style={{ display: "grid", gap: "1rem" }}>
+          <div className="sessions-grid">
             {sessions.map((s) => {
               const joinedCount = Number(s.joined_count ?? 0);
               const capacity = Number(s.capacity ?? 0);
@@ -162,39 +151,28 @@ export default function SessionsList() {
               const isCompleted = s.status === "COMPLETED";
 
               return (
-                <div
-                  key={s.id}
-                  style={{
-                    border: "1px solid #ddd",
-                    borderRadius: "10px",
-                    padding: "1rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "1rem",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <div style={{ flex: "1 1 420px" }}>
-                    <h3 style={{ margin: 0 }}>{s.title}</h3>
-                    <p style={{ margin: "0.4rem 0" }}>
+                <div key={s.id} className="session-card">
+                  <div className="session-info">
+                    <h3>{s.title}</h3>
+                    <p className="session-detail">
                       <b>Module:</b> {s.module} &nbsp;•&nbsp; <b>Venue:</b> {s.venue}
                     </p>
-                    <p style={{ margin: "0.4rem 0" }}>
+                    <p className="session-detail">
                       <b>Date/Time:</b>{" "}
                       {s.datetime ? new Date(s.datetime).toLocaleString() : "-"}
                     </p>
-                    <p style={{ margin: "0.4rem 0" }}>
+                    <p className="session-detail">
                       <b>Capacity:</b> {joinedCount}/{capacity} &nbsp;•&nbsp;{" "}
                       <b>Status:</b> {s.status}
                     </p>
                     {s.creator_username && (
-                      <p style={{ margin: "0.4rem 0" }}>
+                      <p className="session-detail">
                         <b>Creator:</b> {s.creator_username}
                       </p>
                     )}
                   </div>
 
-                  <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                  <div className="session-actions">
                     <button onClick={() => navigate(`/sessions/${s.id}`)}>
                       View
                     </button>

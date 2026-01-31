@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { login } from "../services/api";
+import './styles.css'
 
 export default function Login() {
   const navigate = useNavigate();
@@ -35,13 +36,14 @@ export default function Login() {
     return <Navigate to="/sessions" replace />;
   }
 
+  // Replace existing return statement with:
   return (
-    <main style={{ maxWidth: "400px", margin: "0 auto", padding: "2rem" }}>
+    <main>
       <h2>Login</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username</label>
+          <label>Username: </label>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -50,7 +52,7 @@ export default function Login() {
         </div>
 
         <div>
-          <label>Password</label>
+          <label>Password: </label>
           <input
             type="password"
             value={password}
@@ -59,7 +61,7 @@ export default function Login() {
           />
         </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
 
         <button disabled={busy}>
           {busy ? "Logging in..." : "Login"}

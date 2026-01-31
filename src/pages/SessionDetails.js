@@ -165,43 +165,60 @@ export default function SessionDetails() {
   }
 
   return (
-    <main style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem" }}>
-      <div style={{ marginBottom: "1rem" }}>
-        <Link to="/sessions">← Back to Sessions</Link>
-      </div>
+    <main className="session-details-container">
+      <section className="session-card">
+        <h2>{session.title}</h2>
 
-      <section
-        style={{
-          border: "1px solid #ddd",
-          borderRadius: "10px",
-          padding: "1rem",
-          marginBottom: "1rem",
-        }}
-      >
-        <h2 style={{ marginTop: 0 }}>{session.title}</h2>
+        <div className="session-info">
+          <p>
+            <b>Module:</b> {session.module}
+          </p>
+          <p>
+            <b>Venue:</b> {session.venue}
+          </p>
+          <p>
+            <b>Date/Time:</b>{" "}
+            {session.datetime ? new Date(session.datetime).toLocaleString() : "-"}
+          </p>
+          <p>
+            <b>Status:</b> {session.status}
+          </p>
+          <p>
+            <b>Capacity:</b> {joinedCount}/{capacity} {isFull ? "(Full)" : ""}
+          </p>
+          <p>
+            <b>Creator:</b> {session.creator_username}
+          </p>
+        </div>
+      </section>
 
-        <p style={{ margin: "0.4rem 0" }}>
-          <b>Module:</b> {session.module}
-        </p>
-        <p style={{ margin: "0.4rem 0" }}>
-          <b>Venue:</b> {session.venue}
-        </p>
-        <p style={{ margin: "0.4rem 0" }}>
-          <b>Date/Time:</b>{" "}
-          {session.datetime ? new Date(session.datetime).toLocaleString() : "-"}
-        </p>
-        <p style={{ margin: "0.4rem 0" }}>
-          <b>Status:</b> {session.status}
-        </p>
-        <p style={{ margin: "0.4rem 0" }}>
-          <b>Capacity:</b> {joinedCount}/{capacity} {isFull ? "(Full)" : ""}
-        </p>
-        <p style={{ margin: "0.4rem 0" }}>
-          <b>Creator:</b> {session.creator_username}
-        </p>
+      <section className="participants-section">
+        <h3>Participants ({participants.length})</h3>
 
-        {/* ACTIONS */}
-        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "1rem" }}>
+        {participants.length === 0 ? (
+          <p>No one has joined yet.</p>
+        ) : (
+          <ul className="participants-list">
+            {participants.map((p) => (
+              <li key={p.user_id}>
+                {p.username}
+                {myUserId && Number(p.user_id) === Number(myUserId) ? " (You)" : ""}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      {/* ACTIONS at bottom */}
+      <div className="session-actions">
+        <button 
+          className="back-button"
+          onClick={() => navigate("/sessions")}
+        >
+          ← Back to Sessions
+        </button>
+
+        <div className="session-buttons">
           {!isLoggedIn ? (
             <button onClick={() => navigate("/login")}>Login to Join</button>
           ) : (
@@ -241,36 +258,18 @@ export default function SessionDetails() {
             </>
           )}
         </div>
+      </div>
 
-        {!iAmCreator && isLoggedIn && (
-          <p style={{ marginTop: "0.75rem", fontSize: "0.9rem", color: "#666" }}>
-            Only the creator can edit, delete, or mark completed.
-          </p>
-        )}
-      </section>
-
-      <section
-        style={{
-          border: "1px solid #ddd",
-          borderRadius: "10px",
-          padding: "1rem",
-        }}
-      >
-        <h3 style={{ marginTop: 0 }}>Participants ({participants.length})</h3>
-
-        {participants.length === 0 ? (
-          <p>No one has joined yet.</p>
-        ) : (
-          <ul style={{ paddingLeft: "1.25rem" }}>
-            {participants.map((p) => (
-              <li key={p.user_id}>
-                {p.username}
-                {myUserId && Number(p.user_id) === Number(myUserId) ? " (You)" : ""}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      {!iAmCreator && isLoggedIn && (
+        <p style={{ 
+          textAlign: "right",
+          marginTop: "0.75rem", 
+          fontSize: "0.9rem", 
+          color: "#666" 
+        }}>
+          Only the creator can edit, delete, or mark completed.
+        </p>
+      )}
     </main>
   );
 }

@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { register } from "../services/api";
+import './styles.css'
+
 
 export default function Register() {
   const navigate = useNavigate();
@@ -44,8 +46,9 @@ export default function Register() {
     return <Navigate to="/sessions" replace />;
   }
 
+  // Replace existing return statement with:
   return (
-    <main style={{ maxWidth: "400px", margin: "0 auto", padding: "2rem" }}>
+    <main>
       <h2>Register</h2>
 
       <form onSubmit={handleSubmit}>
@@ -70,7 +73,7 @@ export default function Register() {
           required
         />
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
 
         <button disabled={busy}>
           {busy ? "Registering..." : "Register"}
